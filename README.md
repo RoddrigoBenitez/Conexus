@@ -14,21 +14,68 @@ Para correr la aplicación en tu máquina local, sigue los siguientes pasos:
 git clone https://github.com/RoddrigoBenitez/Conexus.git
 ```
 
-2. Instala las dependencias del backend:
+2. Instala las dependencias:
 
 ```bash
-cd Conexus/backend
 npm install
 ```
 
-3. Levanta la BD de MongoDB:
+3. Build de la imagen de Docker y levanta el contenedor de MongoDB:
+
+Para levantar el contenedor de MongoDB, primero debes tener instalado Docker en tu máquina. Luego, ejecuta el siguiente comando:
+
+```bash
+mongo-docker-compose up -d
+```
+
+Este comando levantará un contenedor de Docker con una instancia de MongoDB en el puerto 27017.
+
+### Nota
+
+Una vez levantado el contenedor de MongoDB, puedes conectarte a la base de datos mediante la terminal del contenedor. Para hacerlo, ejecuta el siguiente comando:
+
+```bash
+docker exec -it mongo-docker-compose bash
+```
+
+La terminal del contenedor se abrirá y podrás conectarte a la base de datos con el siguiente comando:
+
+```bash
+mongo
+```
+
+Una vez conectado a la base de datos, puedes ejecutar comandos de MongoDB para interactuar con ella.
+
+Por ejemplo, para ver las bases de datos disponibles, ejecuta el siguiente comando:
+
+```bash
+show dbs
+```
+
+4. Ejecuta la aplicación:
+
+Existen dos formas de ejecutar la aplicación:
+
+- **Modo desarrollo**: Para ejecutar la aplicación en modo desarrollo, ejecuta el siguiente comando:
+
+```bash
+npm run dev
+```
+
+Este comando levantará un servidor de desarrollo en el puerto 3000.
+
+- **Docker**: Para ejecutar la aplicación en un contenedor de Docker, primero debes tener instalado Docker en tu máquina. Luego, ejecuta el siguiente comando:
 
 ```bash
 docker-compose up -d
 ```
 
-4. Levanta el servidor del backend:
+Este comando levantará un contenedor de Docker con la aplicación en el puerto 3000.
+
+5. Accede a la aplicación:
+
+Una vez que la aplicación esté corriendo, puedes acceder a ella en tu navegador web en la siguiente dirección:
 
 ```bash
-npm start
+http://localhost:3000
 ```
