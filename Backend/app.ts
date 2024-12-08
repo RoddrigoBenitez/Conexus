@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import routes from "./routes";
 import dbConnect from "./db/dbConnect";
+import initializeDatabase  from "./init-db";
 
 dotenv.config();
 
@@ -21,8 +22,9 @@ app.get("/", (req, res) => {
     res.send("Welcome to the API!");
 });
 
-// Conexión a la base de datos
-dbConnect();
+dbConnect().then(() => {
+    initializeDatabase();
+});
 
 // Iniciar el servidor
 app.listen(PORT, () => {
