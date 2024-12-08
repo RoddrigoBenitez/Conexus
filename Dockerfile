@@ -1,23 +1,22 @@
 # Usa una imagen base de Node.js
 FROM node:18-alpine
 
-# Establece el directorio de trabajo en el contenedor
+# Establece el directorio de trabajo
 WORKDIR /app
 
-# Copia los archivos necesarios
+# Copia solo los archivos necesarios para instalar dependencias
 COPY package.json package-lock.json ./
 
 # Instala las dependencias
 RUN npm install
 
-# Copia el resto del código fuente al contenedor
+# Copia el resto del código fuente
 COPY . .
 
 # Compila el código TypeScript a JavaScript
-RUN npm run build
-
-# Expone el puerto en el que tu backend escucha
+RUN npm tsc
+# Expone el puerto en el que escucha la aplicación
 EXPOSE 3000
 
-# Comando para iniciar la aplicación
+# Comando para ejecutar la aplicación
 CMD ["npm", "start"]

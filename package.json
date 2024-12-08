@@ -16,8 +16,7 @@
     "express": "^4.21.2",
     "mongodb": "^6.11.0",
     "mongoose": "^8.8.4",
-    "nodemon": "^3.1.7",
-    "tsc": "^2.0.4"
+    "nodemon": "^3.1.7"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
