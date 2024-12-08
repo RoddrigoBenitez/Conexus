@@ -1,14 +1,19 @@
-import mongoose, { Schema, Document, Model } from "mongoose";
+import mongoose, { Schema, Model } from "mongoose";
 import bcrypt from "bcrypt";
-
-interface IUser extends Document {
+interface IUser {
     username: string;
     password: string;
     rol: "caja" | "mesero" | "cocina";
-    createdAt: Date;
+    createdAt?: Date;
 }
 
-const UserSchema: Schema = new Schema<IUser>({
+interface IUserMethods {
+    comparePassword(candidatePassword: string): Promise<boolean>;
+}
+
+type UserModel = Model<IUser, {}, IUserMethods>;
+
+const UserSchema: Schema<IUser, UserModel, IUserMethods> = new Schema<IUser, UserModel, IUserMethods>({
     username: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     rol: {
@@ -19,20 +24,18 @@ const UserSchema: Schema = new Schema<IUser>({
     createdAt: { type: Date, default: Date.now },
 });
 
-UserSchema.pre<IUser>("save", async function (next) {
+UserSchema.pre("save", async function (next) {
     if (this.isModified("password")) {
         const salt = await bcrypt.genSalt(10);
         this.password = await bcrypt.hash(this.password, salt);
     }
-
     next();
 });
-
 
 UserSchema.methods.comparePassword = async function (candidatePassword: string): Promise<boolean> {
     return bcrypt.compare(candidatePassword, this.password);
 };
 
-const User: Model<IUser> = mongoose.model<IUser>("User", UserSchema);
+const User: UserModel = mongoose.model<IUser, UserModel>("User", UserSchema);
 
 export default User;

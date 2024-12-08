@@ -18,12 +18,8 @@ const HOST = process.env.HOST || "localhost";
 // Rutas
 app.use("/api", routes);
 
-app.get("/", (req, res) => {
-    res.send("Welcome to the API!");
-});
-
 dbConnect().then(() => {
-    initializeDatabase(false);
+    initializeDatabase(true);
 });
 
 // Iniciar el servidor

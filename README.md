@@ -1,58 +1,41 @@
 # Conexus
 
+---
+
 ## Descripción
 
 Conexus es una aplicación web que permite gestionar las interacciones entre los meseros, la caja y la cocina de un bar o restaurante. La aplicación permite a los meseros tomar pedidos, enviarlos a la cocina y a la caja, y a los cocineros y cajeros recibir los pedidos y marcarlos como completados. La aplicación también permite a los administradores gestionar los usuarios y los productos del menú.
 
-## Inicio rápido
+---
 
-Para correr la aplicación en tu máquina local, sigue los siguientes pasos:
+## Quick Start
 
-1. Clona el repositorio:
+Para correr la aplicación en local, sigue los siguientes pasos:
+
+### 1. Clona el repositorio:
 
 ```bash
 git clone https://github.com/RoddrigoBenitez/Conexus.git
 ```
 
-2. Instala las dependencias:
+### 2. Instala las dependencias:
 
 ```bash
 npm install
 ```
 
-3. Build de la imagen de Docker y levanta el contenedor de MongoDB:
+### 3. Build de la imagen de Docker y levanta el contenedor de MongoDB:
 
 Para levantar el contenedor de MongoDB, primero debes tener instalado Docker en tu máquina. Luego, ejecuta el siguiente comando:
 
 ```bash
-mongo-docker-compose up -d
+cd mongo
+docker-compose up -d
 ```
 
 Este comando levantará un contenedor de Docker con una instancia de MongoDB en el puerto 27017.
 
-### Nota
-
-Una vez levantado el contenedor de MongoDB, puedes conectarte a la base de datos mediante la terminal del contenedor. Para hacerlo, ejecuta el siguiente comando:
-
-```bash
-docker exec -it mongo-docker-compose bash
-```
-
-La terminal del contenedor se abrirá y podrás conectarte a la base de datos con el siguiente comando:
-
-```bash
-mongo
-```
-
-Una vez conectado a la base de datos, puedes ejecutar comandos de MongoDB para interactuar con ella.
-
-Por ejemplo, para ver las bases de datos disponibles, ejecuta el siguiente comando:
-
-```bash
-show dbs
-```
-
-4. Ejecuta la aplicación:
+### 4. Ejecuta la aplicación:
 
 Existen dos formas de ejecutar la aplicación:
 
@@ -67,15 +50,15 @@ Este comando levantará un servidor de desarrollo en el puerto 3000.
 - **Docker**: Para ejecutar la aplicación en un contenedor de Docker, primero debes tener instalado Docker en tu máquina. Luego, ejecuta el siguiente comando:
 
 ```bash
-docker-compose up -d
+cd docker
+docker-compose up --build
 ```
 
-Este comando levantará un contenedor de Docker con la aplicación en el puerto 3000.
+Este comando construirá la imagen de Docker y levantará un contenedor con la aplicación en el puerto 3000.
 
-5. Accede a la aplicación:
-
+### 5. Accede a la aplicación:
 Una vez que la aplicación esté corriendo, puedes acceder a ella en tu navegador web en la siguiente dirección:
 
 ```bash
-http://localhost:3000
+http://localhost:3000/api
 ```

@@ -1,50 +1,11 @@
-# docker/docker-compose.yml
-
-version: "3.8"
-
 services:
-  backend:
+  app:
     build:
-      context: ..
-      dockerfile: docker/Dockerfile
+      context: ../
+      dockerfile: ./docker/Dockerfile
     ports:
       - "3000:3000"
     environment:
       - DB_URI=mongodb://root:example@mongo:27017/mydatabase?authSource=admin
       - PORT=3000
-      - HOST=0.0.0.0
-    depends_on:
-      mongo:
-        condition: service_healthy
-    volumes:
-      - ../backend:/app/backend
-      - /app/backend/node_modules
-    networks:
-      - backend-network
-
-  mongo:
-    image: mongo:latest
-    container_name: mongodb
-    restart: always
-    ports:
-      - "27017:27017"
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
-      MONGO_INITDB_DATABASE: mydatabase
-    volumes:
-      - mongo-data:/data/db
-    healthcheck:
-      test: echo 'db.runCommand("ping").ok' | mongo --quiet || exit 1
-      interval: 10s
-      timeout: 5s
-      retries: 5
-    networks:
-      - backend-network
-
-volumes:
-  mongo-data:
-
-networks:
-  backend-network:
-    driver: bridge
+      - HOST=localhost
