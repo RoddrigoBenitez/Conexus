@@ -1,22 +1,31 @@
-# Usa una imagen base de Node.js
-FROM node:18-alpine
+# docker/Dockerfile
 
-# Establece el directorio de trabajo
+# Usa una imagen base de Node.js con Alpine para una imagen ligera
+FROM node:14.17.0-alpine
+
+# Establece el directorio de trabajo dentro del contenedor
 WORKDIR /app
 
-# Copia solo los archivos necesarios para instalar dependencias
-COPY package.json package-lock.json ./
+# Copia los archivos de package.json y package-lock.json (si existe)
+COPY backend/package*.json ./
 
-# Instala las dependencias
+# Instala las dependencias del backend
 RUN npm install
 
-# Copia el resto del código fuente
-COPY . .
+# Copia todo el código fuente del backend al directorio de trabajo en el contenedor
+COPY backend ./backend
+
+# Establece el directorio de trabajo para el backend
+WORKDIR /app/backend
 
 # Compila el código TypeScript a JavaScript
-RUN npm tsc
-# Expone el puerto en el que escucha la aplicación
+RUN npm run build
+
+# Expone el puerto en el que correrá la aplicación
 EXPOSE 3000
 
-# Comando para ejecutar la aplicación
-CMD ["npm", "start"]
+# Define las variables de entorno (pueden ser sobrescritas por docker-compose)
+ENV NODE_ENV=development
+
+# Comando para iniciar la aplicación
+CMD ["node", "dist/app.js"]
