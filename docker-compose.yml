@@ -1,6 +1,16 @@
 version: "3.8"
 services:
-  mongodb:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - DB_URI=mongodb://root:example@mongo:27017/mydatabase?authSource=admin
+    depends_on:
+      - mongo
+  mongo:
     image: mongo:latest
     container_name: mongodb
     restart: always
@@ -11,7 +21,6 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: example
     volumes:
       - mongo-data:/data/db
-      - ./init-scripts:/docker-entrypoint-initdb.d
 
 volumes:
   mongo-data:

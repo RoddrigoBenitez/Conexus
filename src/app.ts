@@ -23,7 +23,7 @@ app.get("/", (req, res) => {
 });
 
 dbConnect().then(() => {
-    initializeDatabase();
+    initializeDatabase(false);
 });
 
 // Iniciar el servidor
