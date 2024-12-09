@@ -1,11 +1,6 @@
 import mongoose, { Schema, Model } from "mongoose";
 import bcrypt from "bcrypt";
-interface IUser {
-    username: string;
-    password: string;
-    rol: "caja" | "mesero" | "cocina";
-    createdAt?: Date;
-}
+import { IUser } from "../../types";
 
 interface IUserMethods {
     comparePassword(candidatePassword: string): Promise<boolean>;
@@ -14,12 +9,20 @@ interface IUserMethods {
 type UserModel = Model<IUser, {}, IUserMethods>;
 
 const UserSchema: Schema<IUser, UserModel, IUserMethods> = new Schema<IUser, UserModel, IUserMethods>({
-    username: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
+    username: { 
+        type: String, 
+        required: true, 
+        unique: true 
+},
+    password: { 
+        type: String, 
+        required: true 
+    },
     rol: {
         type: String,
         required: true,
         enum: ["caja", "mesero", "cocina"],
+        default: "caja"
     },
     createdAt: { type: Date, default: Date.now },
 });
