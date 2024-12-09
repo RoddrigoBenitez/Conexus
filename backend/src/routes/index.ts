@@ -2,7 +2,7 @@ import express from "express";
 
 import mainRoutes from "./main";
 import authRoutes from "./auth";
-import userRoutes from "./user";
+import userRoutes from "../models/user/controller";
 
 const router = express.Router();
 
