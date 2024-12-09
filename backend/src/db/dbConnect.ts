@@ -6,12 +6,15 @@ export default async function connectDB() {
         return;
     }
     try {
-        const mongodbUri = process.env.DB_URI;
-        if (!mongodbUri) {
-            throw new Error("DB_URI is not defined in the environment variables.");
+        const dbUri = process.env.DB_URI;
+
+        if (!dbUri) {
+        throw new Error("DB_URI is not defined in environment variables.");
         }
 
-        await mongoose.connect(mongodbUri);
+        
+        console.log("Connecting to database: ", dbUri);
+        await mongoose.connect(dbUri);
 
         console.log("Database connection established successfully.");
     } catch (error) {
