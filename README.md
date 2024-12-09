@@ -1,64 +1,115 @@
+
 # Conexus
 
 ---
 
 ## Descripción
 
-Conexus es una aplicación web que permite gestionar las interacciones entre los meseros, la caja y la cocina de un bar o restaurante. La aplicación permite a los meseros tomar pedidos, enviarlos a la cocina y a la caja, y a los cocineros y cajeros recibir los pedidos y marcarlos como completados. La aplicación también permite a los administradores gestionar los usuarios y los productos del menú.
+Conexus es una aplicación web que permite gestionar las interacciones entre los meseros, la caja y la cocina de un bar o restaurante. Los meseros pueden tomar pedidos, enviarlos a la cocina y la caja; los cocineros y cajeros reciben los pedidos y los marcan como completados. Los administradores pueden gestionar usuarios y productos del menú.
 
 ---
 
 ## Quick Start
 
-Para correr la aplicación en local, sigue los siguientes pasos:
+### **1. Clona el repositorio**
 
-### 1. Clona el repositorio:
+Clona el repositorio para obtener los archivos necesarios:
 
 ```bash
 git clone https://github.com/RoddrigoBenitez/Conexus.git
+cd Conexus
 ```
 
-### 2. Instala las dependencias:
+---
+
+### **2. Instala las dependencias**
+
+Asegúrate de instalar las dependencias de la aplicación:
 
 ```bash
 npm install
 ```
 
-### 3. Build de la imagen de Docker y levanta el contenedor de MongoDB:
+---
 
-Para levantar el contenedor de MongoDB, primero debes tener instalado Docker en tu máquina. Luego, ejecuta el siguiente comando:
+### **3. Opciones para Ejecutar la Aplicación**
 
-```bash
-cd mongo
-docker-compose up -d
-```
+#### **Opción 1: Ejecutar MongoDB y Backend por Separado**
 
-Este comando levantará un contenedor de Docker con una instancia de MongoDB en el puerto 27017.
+1. **Levantar MongoDB (Docker):**
 
-### 4. Ejecuta la aplicación:
+   Construye la imagen personalizada de MongoDB y levanta el contenedor:
 
-Existen dos formas de ejecutar la aplicación:
+   ```bash
+   cd docker
+   docker build -f Dockerfile.mongo -t mongo-image .
+   docker run --name mongodb -d -p 27017:27017 mongo-image
+   ```
 
-- **Modo desarrollo**: Para ejecutar la aplicación en modo desarrollo, ejecuta el siguiente comando:
+   Este comando ejecutará una instancia de MongoDB en el puerto `27017`.
 
-```bash
-npm run dev
-```
+2. **Ejecutar el Backend en Modo Desarrollo:**
 
-Este comando levantará un servidor de desarrollo en el puerto 3000.
+   Una vez que MongoDB esté corriendo, puedes ejecutar el backend en modo desarrollo con:
 
-- **Docker**: Para ejecutar la aplicación en un contenedor de Docker, primero debes tener instalado Docker en tu máquina. Luego, ejecuta el siguiente comando:
+   ```bash
+   npm run dev
+   ```
 
-```bash
-cd docker
-docker-compose up --build
-```
+   Esto iniciará un servidor en el puerto `3000`.
 
-Este comando construirá la imagen de Docker y levantará un contenedor con la aplicación en el puerto 3000.
+---
 
-### 5. Accede a la aplicación:
-Una vez que la aplicación esté corriendo, puedes acceder a ella en tu navegador web en la siguiente dirección:
+#### **Opción 2: Usar Docker Compose para MongoDB y Backend**
+
+Docker Compose permite levantar ambos servicios (MongoDB y el backend) en contenedores con un solo comando.
+
+1. **Levantar los Servicios:**
+
+   ```bash
+   docker-compose up --build
+   ```
+
+   Este comando:
+   - Construye las imágenes necesarias para MongoDB y el backend.
+   - Levanta ambos servicios en contenedores Docker.
+   - MongoDB estará disponible en el puerto `27017`.
+   - El backend estará disponible en el puerto `3000`.
+
+2. **Detener los Servicios:**
+
+   Para detener los contenedores y liberar recursos, usa:
+   ```bash
+   docker-compose down
+   ```
+
+---
+
+### **4. Acceso a la Aplicación**
+
+Una vez que la aplicación esté corriendo, accede a ella en tu navegador web en la siguiente dirección:
 
 ```bash
 http://localhost:3000/api
 ```
+
+---
+
+### **Notas Adicionales**
+
+- **Variables de Entorno:**
+  Asegúrate de configurar un archivo `.env` en la raíz del proyecto para las variables necesarias. Ejemplo:
+
+  ```env
+  DB_URI=mongodb://root:example@mongo:27017/mydatabase?authSource=admin
+  PORT=3000
+  HOST=0.0.0.0
+  NODE_ENV=development
+  ```
+
+- **Logs:**
+  Para ver los logs de los contenedores, usa:
+  ```bash
+  docker-compose logs app
+  docker-compose logs mongo
+  ```
