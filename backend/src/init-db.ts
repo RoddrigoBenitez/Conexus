@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
-import User from "./models/user";
+import{ User }from "./models/user";
+import { Product } from "./models/products"
 
 async function initializeDatabase(force: boolean = false) {
     try {
@@ -17,7 +18,11 @@ async function initializeDatabase(force: boolean = false) {
         await User.init().catch(error => {
             throw new Error(`Error initializing User collection: ${error.message}`);
         });
-
+        
+        await Product.init().catch(error => {
+            throw new Error(`Error initializing Products collection: ${error.message}`);
+        });
+        
         console.log("Database initialized, collections created.");
     } catch (error) {
         console.error("Error initializing database:", error);
