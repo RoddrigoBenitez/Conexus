@@ -28,6 +28,15 @@ class OrderDao {
         throw Error((error as Error).message);
       }
     }
+
+    async editOrder(orderId: string, updateData: Partial<IOrder>) {
+        try {
+          const updatedOrder = await Order.findByIdAndUpdate(orderId, updateData, { new: true });
+          return updatedOrder;
+        } catch (error) {
+          throw new Error((error as Error).message);
+        }
+    }
 }
   
 const orderDao = new OrderDao();

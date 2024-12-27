@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import orderService from "./service";
 import { IOrder } from "../../types";
 
-const { createOrder, getOrdersByUserId, getOrderById } = orderService;
+const { createOrder, getOrdersByUserId, getOrderById, editOrder } = orderService;
 
 class OrderController {
     async createOrder(req: Request, res: Response) {
@@ -34,6 +34,17 @@ class OrderController {
       } catch (error) {
         res.status(400).json({ message: (error as Error).message });
       }
+    }
+    async editOrder(req: Request, res: Response) {
+        try {
+          const orderId = req.params.orderId;
+          const updateData = req.body;
+      
+          const updatedOrder = await editOrder(orderId, updateData);
+          res.status(200).json(updatedOrder);
+        } catch (error) {
+          res.status(400).json({ message: (error as Error).message });
+        }
     }
 }
 

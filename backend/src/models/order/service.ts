@@ -2,7 +2,7 @@ import orderDao from "./dao";
 import { productDao } from "../products/dao";
 import { IOrder, IOrderProduct } from "../../types";
 
-const { createOrder, getOrderById, getOrdersByUserId } = orderDao
+const { createOrder, getOrderById, getOrdersByUserId, editOrder } = orderDao
 const { editProduct, getProductById } = productDao;
 
 class OrderService {
@@ -43,6 +43,24 @@ class OrderService {
       } catch (error) {
         throw Error((error as Error).message);
       }
+    }
+
+    async editOrder(orderId: string, updateData: Partial<IOrder>) {
+        try {
+          const order = await getOrderById(orderId);
+          if (!order) throw new Error("Order not found");
+      
+          //  si es necesario validaciones adicionales se lo hace aca
+          const updatedOrder = await editOrder(orderId, updateData);
+      
+          // Aqui se emite un evento WebSocket
+          // ejemplo
+          // socket.emit("orderUpdated", updatedOrder);
+      
+          return updatedOrder;
+        } catch (error) {
+          throw new Error((error as Error).message);
+        }
     }
 }  
 
