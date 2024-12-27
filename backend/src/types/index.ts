@@ -23,12 +23,15 @@ export interface IProduct{
 
 export interface IOrder{
     tableNumber: number,
-    products: {
-        productId: string,
-        quantity: number
-    }[],
+    products: IOrderProduct[],
     status: OrderStatus,
     userId?: string,
     area: AreaRole,
     createdAt: Date,
+}
+
+export interface IOrderProduct {
+    product_id: string
+    quantity: number
+    sub_total: number
 }
