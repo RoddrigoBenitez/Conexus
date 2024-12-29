@@ -35,3 +35,8 @@ export interface IOrderProduct {
     quantity: number
     sub_total: number
 }
+
+export interface ICategory{
+    name: string,
+    subCategories?: { id: string }[]
+}
