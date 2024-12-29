@@ -40,3 +40,7 @@ export interface ICategory{
     name: string,
     subCategories?: { id: string }[]
 }
+
+export interface ISubCategory{
+    name: string
+}
