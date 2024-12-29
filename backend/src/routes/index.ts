@@ -6,6 +6,7 @@ import userRouter from "../models/user/routes";
 import productRouter from "../models/products/routes";
 import orderRouter from "../models/order/routes";
 import categoryRouter from "../models/category/routes";
+import subCategoryRouter from "../models/subCategory/routes";
 
 const router = express.Router();
 
@@ -15,5 +16,6 @@ router.use("/user", userRouter);
 router.use("/product", productRouter);
 router.use("/order", orderRouter);
 router.use("/category", categoryRouter);
+router.use("/subCategory", subCategoryRouter);
 
 export default router;

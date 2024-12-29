@@ -36,6 +36,15 @@ class SubCategoryController {
         res.status(500).json({ error: (error as Error).message });
       }
     }
+    async getSubCategoryById(req: Request, res: Response) {
+      try {
+        const { id } = req.params;
+        const getSubCategory = await getSubCategoryById(id);
+        res.status(200).json(getSubCategory);
+      } catch (error) {
+        res.status(500).json({ error: (error as Error).message });
+      }
+    }
     async updateSubCategory(req: Request, res: Response) {
       try {
         const { id } = req.params;
