@@ -50,3 +50,8 @@ export interface IClients{
     tableNumber: number,
     createdAt: Date
 }
+
+export interface IStatusOrder{
+    status: string,
+    createdAt: Date
+}
