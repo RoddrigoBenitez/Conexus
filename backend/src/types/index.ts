@@ -1,3 +1,5 @@
+import { Date } from "mongoose";
+
 export type UserRole = "caja" | "mesero" | "cocina"
 
 export type AreaRole = "caja" | "barra" | "cocina"
@@ -12,7 +14,6 @@ export interface IUser {
 }
 
 export interface IProduct{
-    _id?: string;
     name?: string;
     description?: string;
     price?: number;
@@ -43,4 +44,9 @@ export interface ICategory{
 
 export interface ISubCategory{
     name: string
+}
+
+export interface IClients{
+    tableNumber: number,
+    createdAt: Date
 }
