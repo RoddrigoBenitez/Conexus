@@ -12,8 +12,4 @@ userRouter.post("/newUser", createUser);
 userRouter.delete("/deleteUser/:id", deleteUser);
 userRouter.put("/editUser/:id", editUser);
 
-// Futura funcion de roles
-//userRouter.put("/changeRole/:id", , changeRole);
-
-
 export default userRouter

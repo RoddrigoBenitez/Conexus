@@ -8,7 +8,7 @@ import orderRouter from "../models/order/routes";
 import categoryRouter from "../models/category/routes";
 import subCategoryRouter from "../models/subCategory/routes";
 import clientsRouter from "../models/clients/routes";
-
+import statusOrderRouter from "../models/statusOrder/routes";
 
 const router = express.Router();
 
@@ -20,5 +20,6 @@ router.use("/order", orderRouter);
 router.use("/category", categoryRouter);
 router.use("/subCategory", subCategoryRouter);
 router.use("/clients", clientsRouter);
+router.use("/statusOrder", statusOrderRouter);
 
 export default router;
