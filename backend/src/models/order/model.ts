@@ -4,9 +4,10 @@ import { IOrder } from "../../types";
 type OrderModel = Model<IOrder ,{}>
 
 const OrderSchema: Schema<IOrder, OrderModel>= new Schema<IOrder, OrderModel>({
-    tableNumber:{
-        type: Number,
-        required: false
+    user_id: { 
+        type: Schema.Types.ObjectId,
+        ref: "User", 
+        required: true 
     },
     products:[{
         productId:{
@@ -19,21 +20,21 @@ const OrderSchema: Schema<IOrder, OrderModel>= new Schema<IOrder, OrderModel>({
             required: true 
         },
     }],
-    status: { 
-        type: String, 
-        enum: ["pending", "preparing", "ready", "completed"], 
-        default: "pending" 
-    },
-    userId: { 
+    clients_id: { 
         type: Schema.Types.ObjectId,
-        ref: "User", 
+        ref: "Clients", 
         required: true 
     },
-    area: { 
-        type: String, 
-        enum: ["cocina", "barra", "caja"], 
+    status_id: { 
+        type: Schema.Types.ObjectId,
+        ref: "Clients", 
         required: true 
-},
+    },
+//     area: { 
+//         type: String, 
+//         enum: ["cocina", "barra", "caja"], 
+//         required: true 
+// },
     createdAt: { 
         type: Date, 
         default: Date.now 

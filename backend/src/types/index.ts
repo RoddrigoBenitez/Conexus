@@ -10,7 +10,7 @@ export interface IUser {
     username: string;
     password: string;
     rol: UserRole;
-    createdAt?: Date;
+    createdAt: Date;
 }
 
 export interface IProduct{
@@ -19,15 +19,16 @@ export interface IProduct{
     price?: number;
     stock?: number;
     image?: string[];
-    categoryId?: string;
+    category_id?: string;
+    subCategory_id?: string;
 }
 
 export interface IOrder{
-    tableNumber: number,
+    user_id?: string,
     products: IOrderProduct[],
-    status: OrderStatus,
-    userId?: string,
-    area: AreaRole,
+    clients_id?: string,
+    status_id?: string,
+    //area: AreaRole,
     createdAt: Date,
 }
 
@@ -39,7 +40,7 @@ export interface IOrderProduct {
 
 export interface ICategory{
     name: string,
-    subCategories?: { id: string }[]
+    subCategories?: { _id: string }[]
 }
 
 export interface ISubCategory{

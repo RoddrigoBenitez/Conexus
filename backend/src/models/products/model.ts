@@ -20,9 +20,15 @@ const ProductSchema: Schema<IProduct, ProductModel>= new Schema<IProduct, Produc
         type: Number,
         required: true,
       },
-      categoryId: {
+      category_id: {
         type: Schema.Types.ObjectId,
         ref: "Category",
+        required: false,
+      },
+      subCategory_id:{
+        type: Schema.Types.ObjectId,
+        ref: "Category",
+       // required: true,
         required: false,
       },
       image: {
