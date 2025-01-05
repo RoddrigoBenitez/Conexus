@@ -35,12 +35,12 @@ export interface IOrder{
 export interface IOrderProduct {
     product_id: string
     quantity: number
-    sub_total: number
+    //sub_total: number
 }
 
 export interface ICategory{
     name: string,
-    subCategories?: { _id: string }[]
+    subCategories?: { id: string }[]
 }
 
 export interface ISubCategory{
@@ -53,6 +53,6 @@ export interface IClients{
 }
 
 export interface IStatusOrder{
-    status: string,
+    status: OrderStatus,
     createdAt: Date
 }
