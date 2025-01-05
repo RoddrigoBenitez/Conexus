@@ -27,7 +27,7 @@ const ProductSchema: Schema<IProduct, ProductModel>= new Schema<IProduct, Produc
       },
       subCategory_id:{
         type: Schema.Types.ObjectId,
-        ref: "Category",
+        ref: "SubCategory",
        // required: true,
         required: false,
       },

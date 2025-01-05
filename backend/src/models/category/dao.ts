@@ -17,9 +17,10 @@ class CategoryDao {
     }
     async createCategory(category: { name: string; subCategories?: { id: string }[] }) {
       try {
+        const subCategoryIds = category.subCategories?.map((sub) => sub.id) || [];
         const newCategory = await Category.create({
-          name: category.name,
-          subCategories: category.subCategories || [], // si no hay subcategorías genera array vacio
+            name: category.name,
+            subCategories: subCategoryIds,
         });
         return newCategory;
       } catch (error) {
