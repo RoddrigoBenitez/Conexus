@@ -53,7 +53,7 @@ async createUser(req: Request, res: Response){
 
 // 4. Actualizar un usuario por ID (PUT)
 //router.put("/:id",)
- async editUser(req: Request, res: Response) {
+async editUser(req: Request, res: Response) {
     try {
         const user = await editUser(req.params.id, req.body)
         // Responder con el usuario actualizado (sin la contraseña)
