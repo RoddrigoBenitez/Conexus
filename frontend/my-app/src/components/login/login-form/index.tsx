@@ -1,9 +1,11 @@
 'use client'
+import { signIn } from "next-auth/react";
+import { useState } from "react"
+import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { RiEyeLine, RiLoginBoxLine } from "react-icons/ri";
 import { AiOutlineUser, AiOutlineLoading3Quarters } from "react-icons/ai";
-import { useState } from "react"
-import { useRouter } from "next/navigation"
+import { Spinner } from "flowbite-react";
 
 
 
@@ -13,12 +15,51 @@ export default function LoginForm() {
     const [error, setError] = useState<string | null>(null);
     const router = useRouter();
 
+    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+      e.preventDefault();
+      const formData = new FormData(e.currentTarget);
+      const username = formData.get("username") as string;
+      const password = formData.get("password") as string;
+
+      try {
+        setLoading(true);
+        setError(null);
+
+        const result = await signIn("credentials", {
+          username,
+          password,
+          redirect: false, // Evita redirección automática
+        });
+
+        if (!result?.ok) {
+          setError("Authentication failed. Check your credentials.");
+          return;
+        }
+
+        // Verificar el rol del usuario después del login
+        const sessionResponse = await fetch("/api/auth/session");
+        const session = await sessionResponse.json();
+
+        if (session?.user.role === "caja") {
+          router.push("/");
+        // } else if (session?.user.role === "REGULAR") {
+        //   router.push("/dashboard/regular");
+        } else {
+          setError("User role not recognized.");
+        }
+      } catch (err) {
+        setError("An error occurred during login.");
+      } finally {
+        setLoading(false);
+      }
+    }
+
 
     return(
         <div className="w-[400px] bg-gray-50 rounded-md shadow-md px-12 py-8 flex flex-col items-center border border-gray-300">
             <h3 className="text-xl font font-semibold text-black">Login</h3>
             <h4 className="text-sm font-light mt-2 text-black">Accede a tu cuenta</h4>
-            <form onSubmit={()=>{}}>
+            <form onSubmit={handleSubmit} className="mt-4 w-full">
             <div className="flex flex-col mt-2">
           <div className="border border-gray-300 p-2 rounded-md bg-gray-100 flex gap-2 items-center">
             <AiOutlineUser className="w-5 h-5 text-gray-600" />
@@ -53,7 +94,7 @@ export default function LoginForm() {
             className="bg-neutral-700 text-white font-semibold p-2 rounded-md mt-6 hover:bg-neutral-500 flex items-center justify-center h-10"
           >
             {loading ? (
-              <AiOutlineLoading3Quarters className="h-5 w-5 animate-spin" />
+              <Spinner className="h-5 w-5 animate-spin" />
             ) : (
               "Login"
             )}
