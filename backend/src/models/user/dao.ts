@@ -26,6 +26,7 @@ class UserDao {
             throw Error((error as Error).message);
           }
     }
+
     async editUser(userId: string, user: IUser){
         try {
             const updatedUser = await User.findByIdAndUpdate(userId, user, {

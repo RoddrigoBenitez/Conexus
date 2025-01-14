@@ -2,16 +2,22 @@ import express from "express";
 import dotenv from "dotenv";
 import routes from "./routes";
 import connectDB from "./db/dbConnect";
+import cors from "cors";
 
 dotenv.config();
 
 const app = express();
 
+app.use(cors({
+    origin: process.env.CORS_ORIGIN || "http://localhost:3000", // Ajusta esto al origen de tu frontend
+    methods: ["GET", "POST", "PUT", "DELETE"],
+  }));
+
 // Middlewares
 app.use(express.json());
 
 // Variables de entorno
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5001;
 const HOST = process.env.HOST || "localhost";
 
 // Rutas

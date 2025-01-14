@@ -3,7 +3,7 @@
 import { Avatar, Dropdown, Navbar, Button } from "flowbite-react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { logOut } from "@/src/app/actions/authActions";
+import { logOut } from "@/app/actions/authActions";
 
 export default function NavBar() {
   const { data: session } = useSession();
@@ -21,11 +21,6 @@ export default function NavBar() {
   return (
     <Navbar fluid rounded >
       <Navbar.Brand href="#">
-        <img
-          src=""
-          className="mr-3 sm:h-9 w-[25] h-[25]"
-          alt="App Logo"
-        />
         <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
         Logs-Manager 
         </span>
@@ -36,7 +31,7 @@ export default function NavBar() {
             arrowIcon={false}
             inline
             label={
-                <Button>{session.user.username}</Button>
+                <span>{session.user.username}</span>
                 
 
             }

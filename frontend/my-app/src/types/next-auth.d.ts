@@ -5,13 +5,13 @@ import NextAuth from "next-auth";
       user: {
         userId: string;
         username: string;
-        role: string;
+        rol: string;
       } & DefaultSession["user"];
     }
   
     interface User extends DefaultUser {
       id: string;
-      role: string;
+      rol: string;
       username: string;
     }
   }
