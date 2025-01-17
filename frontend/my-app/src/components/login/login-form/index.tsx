@@ -6,6 +6,7 @@ import Link from "next/link"
 import { RiEyeLine, RiLoginBoxLine } from "react-icons/ri";
 import { AiOutlineUser, AiOutlineLoading3Quarters } from "react-icons/ai";
 import { Spinner } from "flowbite-react";
+import { formLogin } from "@/app/actions/authActions";
 
 
 
@@ -17,67 +18,58 @@ export default function LoginForm() {
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
       e.preventDefault();
-      const formData = new FormData(e.currentTarget);
-      const username = formData.get("username") as string;
-      const password = formData.get("password") as string;
+    const formData = new FormData(e.currentTarget);
+    const username = formData.get("username") as string;
+    const password = formData.get("password") as string;
 
-      try {
-        setLoading(true);
-        setError(null);
+    setLoading(true);
+    setError(null);
 
+    try {
         const result = await signIn("credentials", {
-          username,
-          password,
-          redirect: false, // Evita redirección automática
+            username,
+            password,
+            redirect: false,
         });
 
         if (!result?.ok) {
-          setError("Authentication failed. Check your credentials.");
-          return;
+            throw new Error("Credenciales inválidas");
         }
 
-        // Verificar el rol del usuario después del login
-        const sessionResponse = await fetch("/api/auth/session");
-        const session = await sessionResponse.json();
-
-        if (session?.user.role === "caja") {
-          router.push("/");
-        // } else if (session?.user.role === "REGULAR") {
-        //   router.push("/dashboard/regular");
-        } else {
-          setError("User role not recognized.");
-        }
-      } catch (err) {
-        setError("An error occurred during login.");
-      } finally {
+        router.push("/product");
+    } catch (error) {
+        setError((error as Error).message || "Error al autenticar");
         setLoading(false);
-      }
     }
+}
 
+
+  
 
     return(
         <div className="w-[400px] bg-gray-50 rounded-md shadow-md px-12 py-8 flex flex-col items-center border border-gray-300">
             <h3 className="text-xl font font-semibold text-black">Login</h3>
             <h4 className="text-sm font-light mt-2 text-black">Accede a tu cuenta</h4>
             <form onSubmit={handleSubmit} className="mt-4 w-full">
-            <div className="flex flex-col mt-2">
-          <div className="border border-gray-300 p-2 rounded-md bg-gray-100 flex gap-2 items-center">
-            <AiOutlineUser className="w-5 h-5 text-gray-600" />
-            <input
-              type="text"
-              name="email"
-              placeholder="Enter your mail"
-              className=" focus:outline-none bg-gray-100 text-xs placeholder:text-xs"
-            />
-          </div>
-          <div className="border border-gray-300 p-2 rounded-md bg-gray-100 flex gap-2 items-center justify-between mt-6">
+              <div className="flex flex-col mt-2">
+              <div className="border border-gray-300 p-2 rounded-md bg-gray-100 flex gap-2 items-center">
+             <AiOutlineUser className="w-5 h-5 text-gray-600" />
+                <input
+                  type="text"
+                  name="username"
+                  placeholder="Enter your User"
+                  className=" focus:outline-none bg-gray-100 text-black text-xs placeholder:text-xs"
+                />
+        </div>
+          
+        <div className="border border-gray-300 p-2 rounded-md bg-gray-100 flex gap-2 items-center justify-between mt-6">
             <div className="flex items-center gap-2">
               {/* <IconLock className="w-5 h-5 text-gray-600" /> */}
               <input
                 type={viewPassword ? "text" : "password"}
                 name="password"
                 placeholder="Enter your password"
-                className="focus:outline-none bg-gray-100 text-xs placeholder:text-xs"
+                className="focus:outline-none bg-gray-100 text-black text-xs placeholder:text-xs"
               />
             </div>
             <RiEyeLine
@@ -102,6 +94,6 @@ export default function LoginForm() {
           {error && <p className="text-red-500 text-xs mt-2 w-full text-center">{error}</p>}
         </div>
             </form>
-        </div>
-    )
+    </div>
+  )
 }

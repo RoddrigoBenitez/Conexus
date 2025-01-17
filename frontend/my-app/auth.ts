@@ -1,5 +1,5 @@
 import NextAuth, { AuthError } from "next-auth";
-import { getUserById, login } from "@/src/app/actions/authActions";
+import { getUserByUserName, login } from "@/app/actions/authActions";
 import Credentials from "next-auth/providers/credentials";
 
  
@@ -16,24 +16,26 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           password: string;
         };
         try {
-          const response = await login({ username, password });
-          if (response.error) {
-            throw new Error(response.error);
-          }
-          if (response.username) {
-            const user = await getUserById(username);
-            if (user) {
-              return {
-                id: user.userId,
-                username: user.username,
-                role: user.role,
-              };
-            }
-          }
+          const response = await fetch(`${process.env.NEXT_PUBLIC_API_BACKEND}/user/login`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username, password }),
+        });
+
+        if (!response.ok) {
+            throw new Error("Credenciales inválidas");
+        }
+
+        const data = await response.json();
+        return {
+            id: data.userId,
+            username: data.username,
+            rol: data.rol,
+        };
         } catch (error) {
           throw new AuthError((error as AuthError).message);
         }
-        return null;
+        //return null;
       },
     }),
   ],
@@ -41,14 +43,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id as string;
-        token.role = user.role as string;
+        token.rol = user.rol as string;
         token.username = user.username as string;
       }
       return token;
     },
     async session({ session, token }) {
       session.user.userId = token.id as string;
-      session.user.role = token.role as string;
+      session.user.rol = token.rol as string;
       session.user.username = token.username as string;
 
       return session;

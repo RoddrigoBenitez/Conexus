@@ -1,12 +1,33 @@
 'use server'
 
-import { signOut } from "@/auth";
+import { signOut } from "../../../auth";
 
 // export async function logOut() {
 //   await signOut();
 // }
 
-import { signIn } from "@/auth";
+import { signIn } from "../../../auth";
+
+export async function getUserByUserName(username: string) {
+  try {
+    const result = await fetch(`${process.env.NEXT_PUBLIC_API_BACKEND}/user?username=${username}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    console.log(result)
+    const data = await result.json();
+    console.log(data)
+    return {
+      userId: data._id,
+      rol: data.rol,
+      username: data.username,
+    };
+  } catch (error) {
+    console.error(error);
+  }
+}
 
 export async function login(credentials: { username: string; password: string }) {
     try {
@@ -27,36 +48,18 @@ export async function login(credentials: { username: string; password: string })
       }
     }
 
-export async function getUserById(userId: string) {
-  try {
-    const result = await fetch(`${process.env.NEXT_PUBLIC_API_BACKEND}/user?username=${userId}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const data = await result.json();
-    return {
-      userId: data._id,
-      role: data.role,
-      username: data.username,
-    };
-  } catch (error) {
-    console.error(error);
-  }
-}
+
 
 export async function formLogin(formData: FormData) {
+  //const parsedUsername = username.toLowerCase();
   const username = formData.get("username") as string;
-  const parsedUsername = username.toLowerCase();
   const password = formData.get("password");
 
   try {
-    const result = await signIn("credentials", {
-      username: parsedUsername,
+    const result =  {
+      username: username,
       password: password as string,
-      redirect: false,
-    });
+    }
     return result;
   } catch (error) {
     console.log("actions error", error);
