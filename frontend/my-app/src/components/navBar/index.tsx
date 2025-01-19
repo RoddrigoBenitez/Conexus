@@ -1,6 +1,6 @@
 'use client'
 
-import { Avatar, Dropdown, Navbar, Button } from "flowbite-react";
+import { Dropdown, Navbar } from "flowbite-react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { logOut } from "@/app/actions/authActions";
@@ -19,29 +19,24 @@ export default function NavBar() {
   }
 
   return (
-    <Navbar fluid rounded >
+    <Navbar fluid >
       <Navbar.Brand href="#">
-        <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
-        Logs-Manager 
+        <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white p-4">
+        ConeXus
         </span>
       </Navbar.Brand>
-      <div className="flex md:order-2">
+      <div className="flex md:order-2 p-4">
         {session?.user ? (
           <Dropdown
             arrowIcon={false}
             inline
             label={
                 <span>{session.user.username}</span>
-                
-
             }
           >
             <Dropdown.Header>
             <Dropdown.Item onClick={handleLogOut}>Log Out</Dropdown.Item>
             </Dropdown.Header>
-            {/* <span className="block truncate text-sm font-medium">
-                {session.user.role}
-              </span> */}
           </Dropdown>
         ) : (
           <button
@@ -51,7 +46,7 @@ export default function NavBar() {
             Login
           </button>
         )}
-        <Navbar.Toggle />
+
       </div>
     </Navbar>
   );

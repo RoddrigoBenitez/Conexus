@@ -30,9 +30,11 @@ export default function RootLayout({
       <body
         className=""
       >
-      <SessionProvider>
+        <SessionProvider>
+
         {children}
         </SessionProvider>
+        
       </body>
     </html>
   );

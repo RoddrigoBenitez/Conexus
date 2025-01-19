@@ -26,6 +26,8 @@ export default function LoginForm() {
     setError(null);
 
     try {
+      setLoading(true);
+      setError(null);
         const result = await signIn("credentials", {
             username,
             password,
@@ -33,14 +35,24 @@ export default function LoginForm() {
         });
 
         if (!result?.ok) {
-            throw new Error("Credenciales inválidas");
+          setError("Authentication failed. Check your credentials.");
+          return;
         }
-
+        const sessionResponse = await fetch("/api/auth/session");
+        const session = await sessionResponse.json();
+        if(!session?.user){
+          setError("Authentication failed. Check your credentials.");
+          return;
+        }
         router.push("/product");
     } catch (error) {
-        setError((error as Error).message || "Error al autenticar");
-        setLoading(false);
+      const { message } = error as Error;
+      setError(message.split(".")[0] ?? "Authentication failed");
+      setLoading(false);
     }
+     finally {
+    setLoading(false);
+  }
 }
 
 
@@ -65,6 +77,10 @@ export default function LoginForm() {
         <div className="border border-gray-300 p-2 rounded-md bg-gray-100 flex gap-2 items-center justify-between mt-6">
             <div className="flex items-center gap-2">
               {/* <IconLock className="w-5 h-5 text-gray-600" /> */}
+              <RiEyeLine
+              className="w-4 h-4 cursor-pointer text-gray-600"
+              onClick={() => setViewPassword(!viewPassword)}
+            />
               <input
                 type={viewPassword ? "text" : "password"}
                 name="password"
@@ -72,14 +88,11 @@ export default function LoginForm() {
                 className="focus:outline-none bg-gray-100 text-black text-xs placeholder:text-xs"
               />
             </div>
-            <RiEyeLine
-              className="w-4 h-4 cursor-pointer text-gray-600"
-              onClick={() => setViewPassword(!viewPassword)}
-            />
+            
           </div>
-          <p className=" text-right text-red-500 text-xs mt-1 cursor-pointer">
+          {/* <p className=" text-right text-red-500 text-xs mt-1 cursor-pointer">
             Forgot password?
-          </p>
+          </p> */}
 
           <button
             type="submit"
@@ -93,7 +106,7 @@ export default function LoginForm() {
           </button>
           {error && <p className="text-red-500 text-xs mt-2 w-full text-center">{error}</p>}
         </div>
-            </form>
+      </form>
     </div>
   )
 }
