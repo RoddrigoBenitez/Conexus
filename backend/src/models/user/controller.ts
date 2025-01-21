@@ -54,7 +54,6 @@ async authenticateUser(req: Request, res: Response) {
     const { username, password } = req.body;
     try {
         const user = await validateUser(username, password);
-        console.log("authenticate user: ", user)
         res.status(200).json({
             userId: user._id,
             username: user.username,
