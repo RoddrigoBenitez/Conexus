@@ -46,12 +46,10 @@ class UserService{
             if (!user) {
                 throw new Error("Usuario no encontrado");
             }
-            console.log("validet user: ", user)
             const isPasswordValid = await bcrypt.compare(password, user.password);
             if (!isPasswordValid) {
                 throw new Error("Contraseña incorrecta");
             }
-            console.log("validet return user: ", user)
             return user; // Usuario válido
         } catch (error) {
             throw Error((error as Error).message);

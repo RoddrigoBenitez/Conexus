@@ -31,7 +31,7 @@ export default function NavBar() {
             arrowIcon={false}
             inline
             label={
-                <span>{session.user.username}</span>
+                <span className="px-4 text-white">{session.user.username}</span>
             }
           >
             <Dropdown.Header>

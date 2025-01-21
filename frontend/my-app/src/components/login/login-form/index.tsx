@@ -2,11 +2,11 @@
 import { signIn } from "next-auth/react";
 import { useState } from "react"
 import { useRouter } from "next/navigation"
-import Link from "next/link"
 import { RiEyeLine, RiLoginBoxLine } from "react-icons/ri";
 import { AiOutlineUser, AiOutlineLoading3Quarters } from "react-icons/ai";
 import { Spinner } from "flowbite-react";
-import { formLogin } from "@/app/actions/authActions";
+//import Link from "next/link"
+//import { formLogin } from "@/app/actions/authActions";
 
 
 
@@ -35,13 +35,13 @@ export default function LoginForm() {
         });
 
         if (!result?.ok) {
-          setError("Authentication failed. Check your credentials.");
+          setError(result!.error || "User or Password failed.");
           return;
         }
         const sessionResponse = await fetch("/api/auth/session");
         const session = await sessionResponse.json();
         if(!session?.user){
-          setError("Authentication failed. Check your credentials.");
+          setError("Authentication failed: User or Password failed.");
           return;
         }
         router.push("/product");
