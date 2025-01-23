@@ -1,9 +1,11 @@
 'use client'
 import { useSession } from "next-auth/react";
+import PageProduct from "./ProductPage";
+
 
 export default function PageHome(){
     //const { data: session, status } = useSession();
     return(
-        <h1>Hello User</h1>
+        <PageProduct />
     )
 }

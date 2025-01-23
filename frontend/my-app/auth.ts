@@ -29,7 +29,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
         const user = await response.json();
 
-        console.log("auth user: ", user)
+       // console.log("auth user: ", user)
 
         if (!user) {throw new Error("User not found")};
 
@@ -52,14 +52,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         token.rol = user.rol as string;
         token.username = user.username as string;
       }
-      console.log("auth callback JWT user: ", user)
+     // console.log("auth callback JWT user: ", user)
       return token;
     },
     async session({ session, token }) {
       session.user.userId = token.id as string;
       session.user.rol = token.rol as string;
       session.user.username = token.username as string;
-      console.log("auth session: ", session)
+    //  console.log("auth session: ", session)
       return session;
     },
   },
