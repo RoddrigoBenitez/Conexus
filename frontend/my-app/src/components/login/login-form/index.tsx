@@ -44,7 +44,7 @@ export default function LoginForm() {
           setError("Authentication failed: User or Password failed.");
           return;
         }
-        router.push("/product");
+        router.push("/board");
     } catch (error) {
       const { message } = error as Error;
       setError(message.split(".")[0] ?? "Authentication failed");
