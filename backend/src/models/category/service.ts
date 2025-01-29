@@ -37,7 +37,7 @@ class CategorySercice {
       throw new Error((error as Error).message);
     }
   }
-  async updateCategory(id: string, category: { name: string; subCategories?: { id: string }[] }) {
+  async updateCategory(id: string, category: { name: string; subCategories?: string[] }) {
     try {
       const updatedCategory = await updateCategory(
         id,
