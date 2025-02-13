@@ -12,15 +12,15 @@ class CategorySercice {
       throw new Error((error as Error).message);
     }
   }
-  async getCategoryById(id: string){
+  async getCategoryById(_id: string){
     try {
-      const getCategory = await getCategoryById(id)
+      const getCategory = await getCategoryById(_id)
       return getCategory
     } catch (error) {
         throw Error((error as Error).message);
     }
   }
-  async createCategory(category: { name: string; subCategories?: { id: string }[] }) {
+  async createCategory(category: { name: string; subCategories?: { _id: string }[] }) {
     try {
       const newCategory = await createCategory(category);
       return newCategory;
@@ -29,7 +29,7 @@ class CategorySercice {
     }
   }
   
-  async addSubCategoriesToCategory(categoryId: string, subCategoryIds: { id: string }[]) {
+  async addSubCategoriesToCategory(categoryId: string, subCategoryIds: { _id: string }[]) {
     try {
       const updatedCategory = await addSubCategoriesToCategory(categoryId, subCategoryIds);
       return updatedCategory;
@@ -37,10 +37,10 @@ class CategorySercice {
       throw new Error((error as Error).message);
     }
   }
-  async updateCategory(id: string, category: { name: string; subCategories?: string[] }) {
+  async updateCategory(_id: string, category: { name: string; subCategories?: string[] }) {
     try {
       const updatedCategory = await updateCategory(
-        id,
+        _id,
         {
           name: category.name,
           ...(category.subCategories && { subCategories: category.subCategories }),
@@ -52,9 +52,9 @@ class CategorySercice {
       throw new Error((error as Error).message);
     }
   }
-  async deleteCategory(id: string) {
+  async deleteCategory(_id: string) {
     try {
-      const deletedCategory = await deleteCategory(id);
+      const deletedCategory = await deleteCategory(_id);
       if (!deletedCategory) throw new Error("Categoría no encontrada");
       return deletedCategory;
     } catch (error) {

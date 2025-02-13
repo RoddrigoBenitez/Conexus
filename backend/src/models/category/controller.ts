@@ -24,9 +24,9 @@ class CategoryController {
   }
 
   async getCategoryById(req: Request, res: Response){
-      const { id } = req.params
+      const { _id } = req.params
     try {
-        const category = await getCategoryById(id)
+        const category = await getCategoryById(_id)
         return res.status(200).json(category)
     } catch (error) {
         res.status(500).json({ error: (error as Error).message });
@@ -37,9 +37,9 @@ class CategoryController {
 
   async updateCategory(req: Request, res: Response) {
     try {
-      const { id } = req.params;
+      const { _id } = req.params;
       const { name, subCategories } = req.body;
-      const updatedCategory = await updateCategory(id, { name, subCategories });
+      const updatedCategory = await updateCategory(_id, { name, subCategories });
       res.status(200).json(updatedCategory);
     } catch (error) {
       res.status(500).json({ error: (error as Error).message });
@@ -47,8 +47,8 @@ class CategoryController {
   }
   async deleteCategory(req: Request, res: Response) {
     try {
-      const { id } = req.params;
-      const deletedCategory = await deleteCategory(id);
+      const { _id } = req.params;
+      const deletedCategory = await deleteCategory(_id);
       res.status(200).json(deletedCategory);
     } catch (error) {
       res.status(500).json({ error });

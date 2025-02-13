@@ -10,14 +10,14 @@ class CategoryDao {
     }
     async getCategoryById(id: string) {
       try {
-        return await Category.findById(id).populate("subCategories.id", "name");
+        return await Category.findById(id).populate("subCategories._id", "name");
       } catch (error) {
         throw new Error((error as Error).message);
       }
     }
-    async createCategory(category: { name: string; subCategories?: { id: string }[] }) {
+    async createCategory(category: { name: string; subCategories?: { _id: string }[] }) {
       try {
-        const subCategoryIds = category.subCategories?.map((sub) => sub.id) || [];
+        const subCategoryIds = category.subCategories?.map((sub) => sub._id) || [];
         const newCategory = await Category.create({
             name: category.name,
             subCategories: subCategoryIds,
@@ -30,7 +30,7 @@ class CategoryDao {
    
     // este metodo gregar Subcategorias a una categoria existente
     
-    async addSubCategoriesToCategory(categoryId: string, subCategoryIds: { id: string }[]) {
+    async addSubCategoriesToCategory(categoryId: string, subCategoryIds: { _id: string }[]) {
       try {
         const updatedCategory = await Category.findByIdAndUpdate(
           categoryId,
@@ -42,17 +42,17 @@ class CategoryDao {
         throw new Error((error as Error).message);
       }
     }
-    async updateCategory(id: string, update: object, options = { new: true }) {
+    async updateCategory(_id: string, update: object, options = { new: true }) {
       try {
-        const updatedCategory = await Category.findByIdAndUpdate(id, update, options);
+        const updatedCategory = await Category.findByIdAndUpdate(_id, update, options);
         return updatedCategory;
       } catch (error) {
         throw new Error((error as Error).message);
       }
     }
-    async deleteCategory(id: string) {
+    async deleteCategory(_id: string) {
       try {
-        return await Category.findByIdAndDelete(id);
+        return await Category.findByIdAndDelete(_id);
       } catch (error) {
         throw new Error((error as Error).message);
       }

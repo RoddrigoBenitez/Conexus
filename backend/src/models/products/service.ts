@@ -11,9 +11,9 @@ import Product from "./model";
 const { createProduct, getProductById, editProduct , deleteProduct} = productDao
 
 class ProductService{
-    async getProduct(id: string) {
+    async getProduct(_id: string) {
         try {
-          const product = await getProductById(id);
+          const product = await getProductById(_id);
           return product;
         } catch (error) {
           throw Error((error as Error).message);
@@ -48,17 +48,17 @@ class ProductService{
         }
       }
     
-      async editProduct(id: string, product: IProduct) {
+      async editProduct(_id: string, product: IProduct) {
         try {
-          const updatedProduct = await editProduct(id, product);
+          const updatedProduct = await editProduct(_id, product);
           return updatedProduct;
         } catch (error) {
           throw Error((error as Error).message);
         }
       }
-      async deleteProduct(id: string) {
+      async deleteProduct(_id: string) {
         try {
-          const deletedProduct = await deleteProduct(id);
+          const deletedProduct = await deleteProduct(_id);
           return deletedProduct;
         } catch (error) {
           throw Error((error as Error).message);

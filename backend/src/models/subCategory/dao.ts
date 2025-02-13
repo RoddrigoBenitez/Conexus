@@ -9,9 +9,9 @@ class SubCategoryDao{
           throw Error((error as Error).message);
         }
       }
-      async getSubCategoryById(id: string) {
+      async getSubCategoryById(_id: string) {
         try {
-          return await SubCategory.findById(id)
+          return await SubCategory.findById(_id)
         } catch (error) {
           throw new Error((error as Error).message);
         }
@@ -24,9 +24,9 @@ class SubCategoryDao{
           throw new Error((error as Error).message);
         }
       }
-      async updateSubCategory(id: string, subCategory: ISubCategory) {
+      async updateSubCategory(_id: string, subCategory: ISubCategory) {
         try {
-          const updatedSubCategory = await SubCategory.findByIdAndUpdate(id, subCategory, {
+          const updatedSubCategory = await SubCategory.findByIdAndUpdate(_id, subCategory, {
             new: true,
           });
           return updatedSubCategory;
@@ -34,9 +34,9 @@ class SubCategoryDao{
           throw Error((error as Error).message);
         }
       }
-      async deleteSubCategory(id: string) {
+      async deleteSubCategory(_id: string) {
         try {
-          const deletedSubCategory = await SubCategory.findByIdAndDelete(id);
+          const deletedSubCategory = await SubCategory.findByIdAndDelete(_id);
           return deletedSubCategory;
         } catch (error) {
           throw new Error((error as Error).message);

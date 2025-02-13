@@ -12,9 +12,9 @@ class SubCaterogySercice{
           throw new Error((error as Error).message);
         }
       }
-      async getSubCategoryById(id: string){
+      async getSubCategoryById(_id: string){
         try {
-          const getSubCategory = await getSubCategoryById(id)
+          const getSubCategory = await getSubCategoryById(_id)
           return getSubCategory
         } catch (error) {
             throw Error((error as Error).message);
@@ -29,18 +29,18 @@ class SubCaterogySercice{
           throw new Error((error as Error).message);
         }
       }
-      async updateSubCategory(id: string, subCategory: ISubCategory) {
+      async updateSubCategory(_id: string, subCategory: ISubCategory) {
         try {
-          const updatedSubCategory = await updateSubCategory(id, subCategory);
+          const updatedSubCategory = await updateSubCategory(_id, subCategory);
           return updatedSubCategory;
         } catch (error) {
           throw Error((error as Error).message);
         }
       }
 
-      async deleteSubCategory(id: string) {
+      async deleteSubCategory(_id: string) {
         try {
-          const deletedSubCategory = await deleteSubCategory(id);
+          const deletedSubCategory = await deleteSubCategory(_id);
           return deletedSubCategory;
         } catch (error) {
           throw new Error((error as Error).message);

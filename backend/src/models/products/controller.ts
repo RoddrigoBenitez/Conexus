@@ -5,10 +5,10 @@ const { getProduct, createProduct, deleteProduct, editProduct, } = productServic
 
 class ProductController{
     async getProduct(req: Request, res: Response) {
-        const { id } = req.params;
+        const { _id } = req.params;
         
         try {
-          const product = await getProduct(id);
+          const product = await getProduct(_id);
            
           return res.status(200).json(product);
         } catch (error) {
@@ -36,19 +36,19 @@ class ProductController{
       }
 
       async deleteProduct(req: Request, res: Response) {
-        const { id } = req.params;
+        const { _id } = req.params;
         try {
-          const deletedProduct = await deleteProduct(id);
+          const deletedProduct = await deleteProduct(_id);
           return res.status(200).json(deletedProduct);
         } catch (error) {
           return res.status(400).json({ error });
         }
       }
       async editProduct(req: Request, res: Response) {
-        const { id } = req.params;
+        const { _id } = req.params;
         const editedProductBody = req.body;
         try {
-          const editedProduct = await editProduct(id, editedProductBody);
+          const editedProduct = await editProduct(_id, editedProductBody);
           return res.status(200).json(editedProduct);
         } catch (error) {
           return res.status(400).json({ error });

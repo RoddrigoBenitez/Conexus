@@ -67,9 +67,9 @@ async authenticateUser(req: Request, res: Response) {
 // 3. Obtener un usuario por ID (GET)
 //router.get("/:id",)
  async getUserById (req: Request, res: Response){
-    const { id } = req.params;
+    const { _id } = req.params;
     try {
-        const user = await getUserById(id);
+        const user = await getUserById(_id);
 
         if (!user) {
             return res.status(404).json({ message: "User not found" });
@@ -88,7 +88,7 @@ async authenticateUser(req: Request, res: Response) {
 //router.put("/:id",)
 async editUser(req: Request, res: Response) {
     try {
-        const user = await editUser(req.params.id, req.body)
+        const user = await editUser(req.params._id, req.body)
         // Responder con el usuario actualizado (sin la contraseña)
         res.status(200).json({ message: "User updated successfully", user: { ...user?.toObject(), password: undefined } });
     } catch (error) {
@@ -101,7 +101,7 @@ async editUser(req: Request, res: Response) {
 //router.delete("/:id",) 
 async deleteUser(req: Request, res: Response) {
     try {
-        const user = await deleteUser(req.params.id);
+        const user = await deleteUser(req.params._id);
         // Responder con un mensaje de éxito
         res.status(200).json({ message: "User deleted successfully" , user});
     } catch (error) {
