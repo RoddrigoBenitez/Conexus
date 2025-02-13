@@ -9,9 +9,9 @@ class ClientsDao{
           throw Error((error as Error).message);
         }
       }
-      async getClientsById(id: string) {
+      async getClientsById(_id: string) {
         try {
-          return await Clients.findById(id)
+          return await Clients.findById(_id)
         } catch (error) {
           throw new Error((error as Error).message);
         }
@@ -24,9 +24,9 @@ class ClientsDao{
           throw new Error((error as Error).message);
         }
       }
-      async updateClients(id: string, clients: IClients) {
+      async updateClients(_id: string, clients: IClients) {
         try {
-          const updatedClients = await Clients.findByIdAndUpdate(id, clients, {
+          const updatedClients = await Clients.findByIdAndUpdate(_id, clients, {
             new: true,
           });
           return updatedClients;
@@ -34,9 +34,9 @@ class ClientsDao{
           throw Error((error as Error).message);
         }
       }
-      async deleteClients(id: string) {
+      async deleteClients(_id: string) {
         try {
-          const deletedClients = await Clients.findByIdAndDelete(id);
+          const deletedClients = await Clients.findByIdAndDelete(_id);
           return deletedClients;
         } catch (error) {
           throw new Error((error as Error).message);

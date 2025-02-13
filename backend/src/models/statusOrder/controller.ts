@@ -31,9 +31,9 @@ async createStatusOrder(req: Request, res: Response){
 // 3. Obtener por ID (GET)
 //router.get("/:id",)
  async getStatusOrderById (req: Request, res: Response){
-    const { id } = req.params;
+    const { _id } = req.params;
     try {
-        const statusOrder = await getStatusOrderById(id);
+        const statusOrder = await getStatusOrderById(_id);
 
         if (!statusOrder) {
             return res.status(404).json({ message: "StatusOrder not found" });
@@ -50,7 +50,7 @@ async createStatusOrder(req: Request, res: Response){
 //router.put("/:id",)
  async editStatusOrder(req: Request, res: Response) {
     try {
-        const statusOrder = await editStatusOrder(req.params.id, req.body)
+        const statusOrder = await editStatusOrder(req.params._id, req.body)
         res.status(200).json({ message: "StatusOrder updated successfully", statusOrder: { ...statusOrder?.toObject() }});
     } catch (error) {
         console.error(error);
@@ -62,7 +62,7 @@ async createStatusOrder(req: Request, res: Response){
 //router.delete("/:id",) 
 async deleteStatusOrder(req: Request, res: Response) {
     try {
-        const statusOrder = await deleteStatusOrder(req.params.id);
+        const statusOrder = await deleteStatusOrder(req.params._id);
         // Responder con un mensaje de éxito
         res.status(200).json({ message: "StatusOrder deleted successfully" , statusOrder});
     } catch (error) {

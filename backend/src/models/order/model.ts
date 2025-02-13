@@ -10,7 +10,7 @@ const OrderSchema: Schema<IOrder, OrderModel>= new Schema<IOrder, OrderModel>({
         required: true 
     },
     products:[{
-        productId:{
+        product_id:{
             type: Schema.Types.ObjectId,
             ref: "Product",
             required: true

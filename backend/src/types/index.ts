@@ -40,7 +40,7 @@ export interface IOrderProduct {
 
 export interface ICategory{
     name: string,
-    subCategories?: { id: string }[]
+    subCategories?: { _id: string }[]
 }
 
 export interface ISubCategory{

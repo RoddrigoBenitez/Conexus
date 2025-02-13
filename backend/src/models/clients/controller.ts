@@ -28,8 +28,8 @@ class ClientsController {
     }
     async getClientsById(req: Request, res: Response) {
       try {
-        const { id } = req.params;
-        const getClients = await getClientsById(id);
+        const { _id } = req.params;
+        const getClients = await getClientsById(_id);
         res.status(200).json(getClients);
       } catch (error) {
         res.status(500).json({ error: (error as Error).message });
@@ -37,9 +37,9 @@ class ClientsController {
     }
     async updateClients(req: Request, res: Response) {
       try {
-        const { id } = req.params;
+        const { _id } = req.params;
         const { tableNumber } = req.body;
-        const updatedClients = await updateClients(id, tableNumber);
+        const updatedClients = await updateClients(_id, tableNumber);
         res.status(200).json(updatedClients);
       } catch (error) {
         res.status(500).json({ error: (error as Error).message });
@@ -47,8 +47,8 @@ class ClientsController {
     }
     async deleteClients(req: Request, res: Response) {
       try {
-        const { id } = req.params;
-        const deletedClients = await deleteClients(id);
+        const { _id } = req.params;
+        const deletedClients = await deleteClients(_id);
         res.status(200).json(deletedClients);
       } catch (error) {
         res.status(500).json({ error: (error as Error).message });

@@ -20,9 +20,9 @@ class OrderDao {
       }
     }
   
-    async getOrderById(id: string) {
+    async getOrderById(_id: string) {
       try {
-        const order = await Order.findById(id);
+        const order = await Order.findById(_id);
         return order;
       } catch (error) {
         throw Error((error as Error).message);

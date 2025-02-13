@@ -38,8 +38,8 @@ class SubCategoryController {
     }
     async getSubCategoryById(req: Request, res: Response) {
       try {
-        const { id } = req.params;
-        const getSubCategory = await getSubCategoryById(id);
+        const { _id } = req.params;
+        const getSubCategory = await getSubCategoryById(_id);
         res.status(200).json(getSubCategory);
       } catch (error) {
         res.status(500).json({ error: (error as Error).message });
@@ -47,9 +47,9 @@ class SubCategoryController {
     }
     async updateSubCategory(req: Request, res: Response) {
       try {
-        const { id } = req.params;
+        const { _id } = req.params;
         const { name } = req.body;
-        const updatedSubCategory = await updateSubCategory(id, name);
+        const updatedSubCategory = await updateSubCategory(_id, name);
         res.status(200).json(updatedSubCategory);
       } catch (error) {
         res.status(500).json({ error: (error as Error).message });
@@ -57,8 +57,8 @@ class SubCategoryController {
     }
     async deleteSubCategory(req: Request, res: Response) {
       try {
-        const { id } = req.params;
-        const deletedSubCategory = await deleteSubCategory(id);
+        const { _id } = req.params;
+        const deletedSubCategory = await deleteSubCategory(_id);
         res.status(200).json(deletedSubCategory);
       } catch (error) {
         res.status(500).json({ error: (error as Error).message });

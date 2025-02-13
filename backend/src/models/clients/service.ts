@@ -12,9 +12,9 @@ class ClientsSercice{
           throw new Error((error as Error).message);
         }
       }
-      async getClientsById(id: string){
+      async getClientsById(_id: string){
         try {
-          const getClients = await getClientsById(id)
+          const getClients = await getClientsById(_id)
           return getClients
         } catch (error) {
             throw Error((error as Error).message);
@@ -29,18 +29,18 @@ class ClientsSercice{
           throw new Error((error as Error).message);
         }
       }
-      async updateClients(id: string, clients: IClients) {
+      async updateClients(_id: string, clients: IClients) {
         try {
-          const updatedClients = await updateClients(id, clients);
+          const updatedClients = await updateClients(_id, clients);
           return updatedClients;
         } catch (error) {
           throw Error((error as Error).message);
         }
       }
 
-      async deleteClients(id: string) {
+      async deleteClients(_id: string) {
         try {
-          const deletedClients = await deleteClients(id);
+          const deletedClients = await deleteClients(_id);
           return deletedClients;
         } catch (error) {
           throw new Error((error as Error).message);
