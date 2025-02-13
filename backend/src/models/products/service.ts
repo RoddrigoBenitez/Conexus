@@ -1,11 +1,7 @@
 import { productDao } from "./dao";
 import { IProduct } from "../../types";
-import mongoose from "mongoose";
-import Product from "./model";
-
-// PENDIENTES DE CONFIGURAR
-// import fs from "fs";
-// import cloudinary from "../../config/cloudinary";
+import fs from "fs";
+import cloudinary from "../../config/cloudinary";
 
 
 const { createProduct, getProductById, editProduct , deleteProduct} = productDao
@@ -22,24 +18,24 @@ class ProductService{
     
     // async getProducts(searchParams: ISearchParams) {} esta pendiente a los create filters
 
-      async createProduct(product: IProduct) {  //<--- add a params ', files: Express.Multer.File[]'
+      async createProduct(products: IProduct, files: Express.Multer.File[]) {  //<--- add a params ', '
         try {
-        //   const uploadResults = await Promise.all(
-        //     files.map((file) =>
-        //       cloudinary.uploader.upload(file.path, { folder: 'products' })
-        //     )
-        //   );
+          const uploadResults = await Promise.all(
+            files.map((file) =>
+              cloudinary.uploader.upload(file.path, { folder: 'products' })
+            )
+          );
       
-        // files.forEach((file) => fs.unlinkSync(file.path));
+        files.forEach((file) => fs.unlinkSync(file.path));
       
-        // const imageUrls = uploadResults.map((result) => result.secure_url);
+        const imageUrls = uploadResults.map((result) => result.secure_url);
     
-        // const product = {
-        //   ...productData,
-        //   image: imageUrls, 
-        // };
+        const product = {
+          ...products,
+          image: imageUrls, 
+        };
     
-        //   console.log('Product input to save service:', product);
+          console.log('Product input to save service:', product);
       
           return await createProduct(product);
         } catch (error) {

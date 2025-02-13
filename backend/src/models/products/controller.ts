@@ -19,16 +19,16 @@ class ProductController{
       async createProduct(req: Request, res: Response) {
         try {
            const products = req.body;
-        //   const files = req.files as Express.Multer.File[];
-        //   if (!files || files.length === 0) {
-        //     res.status(400).json({ message: 'No file uploaded' });
-        //     return;
-        //   }
-      
-        //   // Delegar al servicio
-          const product = await createProduct(products);
-          console.log('Product created controller:', product);
-          res.status(201).json(product);
+           const files = req.files as Express.Multer.File[];
+           if (!files || files.length === 0) {
+             res.status(400).json({ message: 'No file uploaded' });
+             return;
+           }
+       
+           // Delegar al servicio
+           const product = await createProduct(products, files);
+           console.log('Product created controller:', product);
+           res.status(201).json(product);
         } catch (error) {
           console.error('Error creating product:', error);
           res.status(500).json({ message: 'Server error' });
