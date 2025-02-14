@@ -32,7 +32,7 @@ const ProductSchema: Schema<IProduct, ProductModel>= new Schema<IProduct, Produc
         required: false,
       },
       image: {
-       type: String,
+       type: [String],
         required: true,
       },
 });
