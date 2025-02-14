@@ -3,7 +3,7 @@ import path from 'path';
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'uploads/'); // Temporalmente guarda en una carpeta local
+    cb(null, './uploads'); // Temporalmente guarda en una carpeta local
   },
   filename: (req, file, cb) => {
     cb(null, `${Date.now()}-${file.originalname}`);

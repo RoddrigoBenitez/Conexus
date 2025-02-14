@@ -20,10 +20,10 @@ class ProductController{
         try {
            const products = req.body;
            const files = req.files as Express.Multer.File[];
-           if (!files || files.length === 0) {
-             res.status(400).json({ message: 'No file uploaded' });
-             return;
-           }
+          //  if (!files || files.length === 0) {
+          //    res.status(400).json({ message: 'No file uploaded' });
+          //    return;
+          //  }
        
            // Delegar al servicio
            const product = await createProduct(products, files);
