@@ -20,24 +20,24 @@ class ProductService{
 
       async createProduct(products: IProduct, files: Express.Multer.File[]) {  //<--- add a params ', '
         try {
-          const uploadResults = await Promise.all(
-            files.map((file) =>
-              cloudinary.uploader.upload(file.path, { folder: 'products' })
-            )
-          );
+        //   const uploadResults = await Promise.all(
+        //     files.map((file) =>
+        //       cloudinary.uploader.upload(file.path, { folder: 'images' })
+        //     )
+        //   );
       
-        files.forEach((file) => fs.unlinkSync(file.path));
+        // files.forEach((file) => fs.unlinkSync(file.path));
       
-        const imageUrls = uploadResults.map((result) => result.secure_url);
+        // const imageUrls = uploadResults.map((result) => result.secure_url);
     
-        const product = {
-          ...products,
-          image: imageUrls, 
-        };
+        // const product = {
+        //   ...products,
+        //   image: imageUrls, 
+        // };
     
-          console.log('Product input to save service:', product);
+          console.log('Product input to save service:', products);
       
-          return await createProduct(product);
+          return await createProduct(products);
         } catch (error) {
           console.error('Error in service:', error);
           throw new Error((error as Error).message);
