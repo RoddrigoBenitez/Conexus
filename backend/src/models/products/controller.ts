@@ -1,9 +1,17 @@
 import { Request, Response } from "express";
 import { productService } from "./service";
 
-const { getProduct, createProduct, deleteProduct, editProduct, } = productService;
+const { getProduct, getAllProducts, createProduct, deleteProduct, editProduct, } = productService;
 
 class ProductController{
+  async getProducts(req: Request, res: Response){
+    try {
+      const products = await getAllProducts()
+      res.status(200).json(products)
+    } catch (error) {
+      return res.status(400).json({ error });
+    }
+  }
     async getProduct(req: Request, res: Response) {
         const { _id } = req.params;
         

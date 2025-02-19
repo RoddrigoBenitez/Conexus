@@ -12,8 +12,14 @@ class ProductDao{
         }
       };
 
-    // async getAllProducts(){}  <-- quedan pendiente los iltros para generar su capa
-
+     async getAllProducts(){
+      try {
+        const products = await Product.find()
+        return products
+      } catch (error) {
+        throw Error((error as Error).message);
+      }
+     }  
 
     async getProductById(productId: string) {
         try {

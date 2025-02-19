@@ -4,7 +4,7 @@ import fs from "fs";
 import cloudinary from "../../config/cloudinary";
 
 
-const { createProduct, getProductById, editProduct , deleteProduct} = productDao
+const { getAllProducts, createProduct, getProductById, editProduct , deleteProduct} = productDao
 
 class ProductService{
     async getProduct(_id: string) {
@@ -16,7 +16,14 @@ class ProductService{
         }
       }
     
-    // async getProducts(searchParams: ISearchParams) {} esta pendiente a los create filters
+     async getAllProducts() {
+      try {
+        const products = await getAllProducts()
+        return products
+      } catch (error) {
+        throw Error((error as Error).message);
+      }
+     } //esta pendiente a los create filters
 
       async createProduct(products: IProduct, files: Express.Multer.File[]) {  //<--- add a params ', '
         try {
