@@ -31,25 +31,28 @@ export default function PageProduct(){
 
 
     return(
-        <div className="flex flex-wrap justify-center items-stretch w-[1200] p-4 m-4">
+        <div className="flex flex-col items-center">
+            <h1 className="font-bold text-2xl">Menu</h1>
             {products.map((product)=>(
 
-            <Card className="max-w-[300px] flex justify-center items-center p-4 m-4"
+            <div className="flex justify-between rounded-md bg-blue-500 w-[600px] gap-4 p-4 m-4"
             key={product._id}
             >
+                <div className="flex flex-col gap-4">
                 <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                     {product.name}    
                 </h5>
-                <h6>
+                <h6 className="font-bold tracking-tight text-gray-900 dark:text-white ">
                     {product.description}
                 </h6>
                 <span>
-                    <p>{product.price}</p>
+                    <p className="dark:text-white">{product.price}</p>
                 </span>
+                </div>
                 <Button>
                     Details
                 </Button>
-            </Card>
+            </div>
             ))}
         </div>
     )
