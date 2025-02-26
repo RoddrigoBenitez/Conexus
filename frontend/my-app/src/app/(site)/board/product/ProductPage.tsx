@@ -45,7 +45,7 @@ export default function PageProduct(){
                 <h6 className="font-bold tracking-tight text-gray-900 dark:text-white ">
                     {product.description}
                 </h6>
-                <span className="flex justify-between">
+                <span className="flex justify-end items-center">
                     <p className="dark:text-white">Total:</p>
                     <p className="dark:text-white font-bold">{product.price}</p>
                 </span>
