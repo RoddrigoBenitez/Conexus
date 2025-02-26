@@ -2,6 +2,7 @@
 import { Button, Card } from "flowbite-react";
 import { IProducts } from "@/types";
 import { useEffect, useState } from "react";
+import PrevOrders from "@/components/orderCard";
 
 export default function PageProduct(){
     const [products, setProducts] = useState<IProducts[]>([])
@@ -33,6 +34,7 @@ export default function PageProduct(){
     return(
         <div className="flex flex-col items-center">
             <h1 className="font-bold text-2xl">Menu</h1>
+            <PrevOrders />
             {products.map((product)=>(
 
             <div className="flex justify-between rounded-md bg-blue-500 w-[600px] gap-4 p-4 m-4"
